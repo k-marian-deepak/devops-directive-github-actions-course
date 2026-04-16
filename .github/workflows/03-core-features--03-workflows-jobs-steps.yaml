@@ -10,7 +10,7 @@ jobs:
       - run: echo "one or more steps"
       - run: echo "which run sequentially"
       - run: echo "within the same compute environment"
-      - run: "And now I am adding a few lines of my own here to know and get familiarized with the operations"
+      - run: echo "And now I am adding a few lines of my own here to know and get familiarized with the operations"
   job-2:
     runs-on: ubuntu-24.04
     steps:
