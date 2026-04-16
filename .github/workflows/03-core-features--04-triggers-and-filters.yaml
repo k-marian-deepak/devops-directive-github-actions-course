@@ -1,4 +1,4 @@
-name: Triggering Events - This will trigger
+name: Triggering Events - This will not trigger
 # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
 
 on:
