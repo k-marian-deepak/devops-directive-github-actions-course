@@ -4,16 +4,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  say-hello-combined-step:
+  say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:
-      - name: Say Hello from an Inline Bash Script Step
-        run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
-      - name: Say Hello from Python Step
-        shell: python
-        run: print("Hello from an inline python script in a GitHub Action Workflow!")
+      - run: echo "Hello from an inline bash script in a GitHub Action Workflow! By Deepak"
 
-      - name: Say Hello from a JavaScript Marketplace Action Step
-        uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d
+  say-hello-inline-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: print("Hello from an inline python script in a GitHub Action Workflow! By Deepak")
+        shell: python
+
+  say-hello-action:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d # v1.1
+        # - uses: actions/hello-world-javascript-action@v1 # This would work, but it would be less stable and less secure:
         with:
-          who-to-greet: "from anaction in a GitHub Action marketplace! 👋 By Marian"
+          who-to-greet: "from an action in the GitHub Action marketplace! 👋 By Marian"
