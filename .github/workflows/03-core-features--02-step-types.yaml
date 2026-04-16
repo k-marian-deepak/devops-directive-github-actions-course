@@ -1,4 +1,4 @@
-name: Step Types - By Deepak
+name: Step Types
 
 on:
   workflow_dispatch:
