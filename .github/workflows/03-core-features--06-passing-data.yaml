@@ -7,32 +7,29 @@ jobs:
     runs-on: ubuntu-24.04
 
     outputs:
-      pi: ${{ steps.generate-pi.outputs.pi }}
+      foo: ${{ steps.generate-foo.outputs.foo }}
     steps:
-      - name: Generate and export pi
-        id: generate-pi
+      - name: Generate and export foo
+        id: generate-foo
         run: |
-          pi=threepointonefour
+          foo=bar
 
           # 1) Step output (for job output)
-          echo "pi=${pi}" >> "$GITHUB_OUTPUT"
+          echo "foo=${foo}" >> "$GITHUB_OUTPUT"
 
           # 2) Job-scoped environment variable
-          echo "PI=${pi}" >> "$GITHUB_ENV"
+          echo "FOO=${foo}" >> "$GITHUB_ENV"
 
       - name: Inspect values inside producer
         run: |
-          echo "PI (set via GITHUB_ENV):   $PI"
-          echo "pi (step output):          ${{ steps.generate-pi.outputs.pi }}"
+          echo "foo (step output):          ${{ steps.generate-foo.outputs.foo }}"
+          echo "FOO (set via GITHUB_ENV):   $FOO"
 
   consumer:
     runs-on: ubuntu-24.04
     needs: producer
     steps:
-      - name: Inspect values inside consumer (note pi is unset)
+      - name: Inspect values inside consumer (note FOO is unset)
         run: |
-          pi = THREEPOINTONEFOUR
-
-          echo "PI=$pi"  # (local variable in consumer, not set by producer) not set by producer, just a local variable here
-          echo "Value from producer:        ${{ needs.producer.outputs.pi }}"
-          echo "pi in consumer:            $PI"
+          echo "Value from producer:        ${{ needs.producer.outputs.foo }}"
+          echo "FOO in consumer:            ${FOO:-<UNSET>}"
