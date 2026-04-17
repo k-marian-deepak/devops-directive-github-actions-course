@@ -45,10 +45,8 @@ jobs:
 
     steps:
       - name: Completing the course and sharing the result
+        id: complete-course-and-share-result
         run: |
-          #id
-          id: complete-course-and-share-result
-
           #variable declarations
           course_completed=true
           result=false
