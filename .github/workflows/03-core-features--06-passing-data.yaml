@@ -52,8 +52,8 @@ jobs:
           result=false
 
           #OUTPUTS
-          echo "course_completed=true" >> "$GITHUB_OUTPUT"
-          echo "result=false" >> "$GITHUB_OUTPUT"
+          echo "course_completed=${course_completed}" >> "$GITHUB_OUTPUT"
+          echo "result=${result}" >> "$GITHUB_OUTPUT"
 
           #ENVIRONMENT_VARIABLES
           echo "COURSE_COMPLETED=${course_completed}" >> "$GITHUB_ENV"
