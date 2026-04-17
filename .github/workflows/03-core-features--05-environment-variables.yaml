@@ -1,3 +1,5 @@
+#ENVIRONMENT_VARIABLES declared at the workflow level/yaml file level
+
 name: Environment Variables
 on:
   workflow_dispatch:
