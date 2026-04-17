@@ -31,5 +31,6 @@ jobs:
     steps:
       - name: Inspect values inside consumer (note pi is unset)
         run: |
+          pi = THREEPOINTONEFOUR
           echo "Value from producer:        ${{ needs.producer.outputs.pi }}"
-          echo "pi in consumer:            ${pi:-<UNSET>}"
+          echo "pi in consumer:            $pi"
