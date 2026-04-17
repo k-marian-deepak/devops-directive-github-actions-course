@@ -32,5 +32,7 @@ jobs:
       - name: Inspect values inside consumer (note pi is unset)
         run: |
           pi = THREEPOINTONEFOUR
+
+          echo "pi=$pi (local variable in consumer, not set by producer)"  # not set by producer, just a local variable here
           echo "Value from producer:        ${{ needs.producer.outputs.pi }}"
           echo "pi in consumer:            $pi"
