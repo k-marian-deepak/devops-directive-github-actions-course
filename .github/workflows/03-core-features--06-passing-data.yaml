@@ -35,3 +35,50 @@ jobs:
           echo "FOO=${FOO}" >> "$GITHUB_ENV"
           echo "Value from producer:        ${{ needs.producer.outputs.foo }}"
           echo "FOO in consumer:            $FOO"
+  
+  teacher:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      course_completed: ${{ steps.complete-course-and-share-result.outputs.course_completed }}
+      result: ${{ steps.complete-course-and-share-result.outputs.result }}
+
+    steps:
+      - name: Completing the course and sharing the result
+        run: |
+          #id
+          id: complete-course-and-share-result
+
+          #variable declarations
+          course_completed=true
+          result=false
+
+          #OUTPUTS
+          echo "course_completed=true" >> "$GITHUB_OUTPUT"
+          echo "result=false" >> "$GITHUB_OUTPUT"
+
+          #ENVIRONMENT_VARIABLES
+          echo "COURSE_COMPLETED=${course_completed}" >> "$GITHUB_ENV"
+          echo "RESULT=${result}" >> "$GITHUB_ENV"
+
+          #INSPECTING VALUES - ENVIRONMENT_VARIABLES
+          echo "Course completed (step output): $COURSE_COMPLETED"
+          echo "Result (step output):           $RESULT"
+          
+          #INSPECTING VALUES - OUTPUTS
+          echo "Course completed (step output): ${{ steps.complete-course-and-share-result.outputs.course_completed }}"
+          echo "Result (step output):           ${{ steps.complete-course-and-share-result.outputs.result }}"
+
+  student:
+    runs-on: ubuntu-latest
+    needs: teacher
+    steps:
+      - name: Renouncing the results shared by teacher
+        run: |
+          #Via OUTPUTS
+          echo "Course completed (from teacher's output): ${{ needs.teacher.outputs.course_completed }}"
+          echo "Result (from teacher's output):           ${{ needs.teacher.outputs.result }}"
+
+          #Via ENVIRONMENT_VARIABLES
+          echo "Course completed (from student): ${COURSE_COMPLETED:-<UNSET>}"
+          echo "Result (from student):           ${RESULT:-<UNSET>}"
