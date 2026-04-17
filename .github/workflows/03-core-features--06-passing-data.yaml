@@ -51,14 +51,13 @@ jobs:
           course_completed=true
           result=false
 
-          #OUTPUTS
+          #OUTPUTS & ENVIRONMENT_VARIABLES
           echo "course_completed=${course_completed}" >> "$GITHUB_OUTPUT"
           echo "result=${result}" >> "$GITHUB_OUTPUT"
-
-          #ENVIRONMENT_VARIABLES
           echo "COURSE_COMPLETED=${course_completed}" >> "$GITHUB_ENV"
           echo "RESULT=${result}" >> "$GITHUB_ENV"
-
+      - name: Inspecting values inside teacher
+        run: |
           #INSPECTING VALUES - ENVIRONMENT_VARIABLES
           echo "Course completed (step output): $COURSE_COMPLETED"
           echo "Result (step output):           $RESULT"
