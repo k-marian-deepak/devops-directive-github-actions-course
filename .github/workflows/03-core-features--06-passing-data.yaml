@@ -31,5 +31,7 @@ jobs:
     steps:
       - name: Inspect values inside consumer (note FOO is unset)
         run: |
+          FOO = BAR
+          echo "FOO=${FOO}" >> "$GITHUB_ENV"
           echo "Value from producer:        ${{ needs.producer.outputs.foo }}"
           echo "FOO in consumer:            ${FOO:-<UNSET>}"
