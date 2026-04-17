@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 env:
   WORKFLOW_VAR: I_AM_WORKFLOW_SCOPED
+  WORKFLOW_VAR_2: I_AM_WORKFLOW_SCOPED_2
 
 jobs:
   job-1:
@@ -30,5 +31,6 @@ jobs:
       - name: Inspect scopes job 2 step 2
         run: |
           echo "WORKFLOW_VAR: $WORKFLOW_VAR"                 # still visible
+          echo "WORKFLOW_VAR_2: $WORKFLOW_VAR_2"             # still visible
           echo "JOB_VAR:      ${FOO:-<UNSET>}"               # not set here
           echo "STEP_VAR:     ${STEP_VAR:-<UNSET>}"          # not set here
