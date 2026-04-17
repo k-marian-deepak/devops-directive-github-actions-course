@@ -13,11 +13,11 @@ jobs:
     steps:
       - name: Inspect scopes job 1 step 1
         env:
-          STEP_VAR: I_AM_STEP_SCOPED
+          STEP_VAR_JOB_1_STEP_1: I_AM_JOB_1_STEP_SCOPED_1
         run: |
           echo "WORKFLOW_VAR: $WORKFLOW_VAR"   # visible
           echo "JOB_VAR:      $JOB_VAR"        # visible
-          echo "STEP_VAR:     $STEP_VAR"       # visible only here
+          echo "STEP_VAR:     $STEP_VAR_JOB_1_STEP_1"       # visible only here
 
       - name: Inspect scopes job 1 step 2
         env:
@@ -34,9 +34,9 @@ jobs:
     steps:
       - name: Inspect scopes job 2 step 2
         env:
-          STEP_VAR_JOB_2: I_AM_STEP_SCOPED_2
+          STEP_VAR_JOB_2_STEP_1: I_AM_JOB_2_STEP_SCOPED_1
         run: |
           echo "WORKFLOW_VAR:    $WORKFLOW_VAR"            # still visible
           echo "WORKFLOW_VAR_2:  $WORKFLOW_VAR_2"          # still visible
           echo "JOB_VAR:         $JOB_VAR_JOB_2"           # not set here
-          echo "STEP_VAR:        $STEP_VAR_JOB_2"          # not set here
+          echo "STEP_VAR:        $STEP_VAR_JOB_2_STEP_1"   # not set here
