@@ -73,6 +73,10 @@ jobs:
     steps:
       - name: Renouncing the results shared by teacher
         run: |
+          #VARIABLES DECLARATION IN STUDENT JOB
+          COURSE_COMPLETED=false
+          RESULT=false
+
           #Via OUTPUTS
           echo "Course completed (from teacher's output): ${{ needs.teacher.outputs.course_completed }}"
           echo "Result (from teacher's output):           ${{ needs.teacher.outputs.result }}"
