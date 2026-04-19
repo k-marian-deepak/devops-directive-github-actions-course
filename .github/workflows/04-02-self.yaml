@@ -1,0 +1,59 @@
+name: Artifats and the previous ones
+
+on:
+    workflow_dispatch:
+    push:
+
+jobs:
+    # for practice
+    produce-sys-details:
+        name: Some detials of the current running system
+        runs-on: ubuntu-24.04
+        outputs:
+            sys_info: ${{ steps.github_hosted_ubuntu_os_details.outputs.os_details }}
+        steps:
+            - name: Show runner info
+              id: github_hosted_ubuntu_os_details
+              run: |
+                  VALUE="runner.os-runner.arch ${{ runner.os }}-${{ runner.arch }}"
+                  echo "os_details=$VALUE" >> $GITHUB_OUTPUT
+    
+    echo-sys-details:
+        name: Echo Sys Detils
+        runs-on: ubuntu-24.04
+        needs: produce-sys-details
+        steps:
+            - name: GitHub Actions Output of GitHub Hosted Ubuntu VM
+              run: |
+                  ### EDITED: Fixed typo in 'needs' reference to match the producer job ID
+                  echo "The produced system details are: ${{ needs.produce-sys-details.outputs.sys_info }}"
+    
+    writing-in-artifact:
+        name: Writing & Uploading Artifact
+        runs-on: ubuntu-24.04
+        needs: [produce-sys-details, echo-sys-details]
+        steps:
+            - name: Writing sys details in the artifact.txt
+              run: |
+                  ### EDITED: Replaced $VALUE (which was empty) with the actual job output context
+                  echo "Runner OS detail: ${{ needs.produce-sys-details.outputs.sys_info }}" > artifact.txt
+                  ### EDITED: Fixed date syntax from ${date} to $(date)
+                  echo "Generated on $(date)" >> artifact.txt
+            
+            - name: Uploading the artifact.txt
+              uses: actions/upload-artifact@b4b15b8c7c6ac21ea23f801d0c41885871082301 # v4.6.0
+              with:
+                  name: system-info
+                  path: artifact.txt
+
+    download-artifact:
+        name: Downloading Artifact
+        runs-on: ubuntu-24.04
+        needs: writing-in-artifact
+        steps:
+            - name: Downloading artifat.txt in a zip (system-info.zip)
+              uses: actions/download-artifact@cc206184be2f00a9446d2742467d037062491d0 # v4.1.8
+              with:
+                  name: system-info
+            - name: Cat sys info
+              run: cat artifact.txt
