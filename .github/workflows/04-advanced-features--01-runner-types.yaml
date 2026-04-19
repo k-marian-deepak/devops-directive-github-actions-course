@@ -57,7 +57,14 @@ jobs:
           echo "Hello from ${{ runner.os }}-${{ runner.arch }}"
           echo "Runner name (type): ${{ runner.name }}"
           echo "Container image:   $(grep PRETTY_NAME /etc/os-release)"
-
+  github-hosted-latest-ubuntu-vm: #By Deepak
+    name: Ubuntu latest VM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show runner info
+        run: |
+          echo "Hello from ${{ runner.os }}-${{ runner.arch }}"
+          echo "Runner name (type): ${{ runner.name }}"
   ######################################
   #  3RD PARTY HOSTED RUNNERS
   ######################################
