@@ -41,7 +41,7 @@ jobs:
                   echo "Generated on $(date)" >> artifact.txt
             
             - name: Uploading the artifact.txt
-              uses: actions/upload-artifact@e5a6c50e2e33b5267acd95a5a3fcfdb32c5cd916 # v4.6.0
+              uses: actions/upload-artifact@v4.6.0 # v4.6.0 - (redefined the version, not the best pracitce)
               with:
                   name: system-info
                   path: artifact.txt
@@ -52,7 +52,7 @@ jobs:
         needs: writing-in-artifact
         steps:
             - name: Downloading artifat.txt in a zip (system-info.zip)
-              uses: actions/download-artifact@a2c3f6b49695ba20dfd54c0e9a88d04fe4fe3d17
+              uses: actions/download-artifact@v4.1.8 # v4.1.8 (redefined the version, not the best pracitce)
               with:
                   name: system-info
             - name: Cat sys info
