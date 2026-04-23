@@ -9,26 +9,25 @@ jobs:
     name: Text caching
     runs-on: ubuntu-24.04
     steps:
-      # Restore cache (misses on first run)
-      - name: Restore Cache file
+      - name: Restore Cache file # Restore cache (misses on first run)
         id: deep-cache
         uses: actions/cache/restore@v4
         with:
           path: text-cache
           key: text-cache
+
+      - name: Display cache status # Display cache status (i.e. only works if cache is hit)
         run: |
           echo "cat text-cache/cached.txt"
 
-      # Fill in directory only on miss (i.e. only happens when u run it fresh)
-      - name: Fill in cache directory
+      - name: Fill in cache directory # Fill in directory only on miss (i.e. only happens when u run it fresh)
         if: steps.deep-cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p text-cache
           echo "This is some cached text." > text-cache/cached.txt
           echo "Cache filled!"
-
-      # Save if the new cache is created (i.e. only happens when u run it fresh)
-      - name: Save Cache file
+          
+      - name: Save Cache file # Save if the new cache is created (i.e. only happens when u run it fresh)
         if: steps.deep-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
