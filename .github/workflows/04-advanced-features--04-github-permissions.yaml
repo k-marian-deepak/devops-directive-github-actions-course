@@ -53,7 +53,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr edit 1 --add-label "documentation"
+          PR_NUMBER=$(gh pr list --limit 1 --json number --jq '.[0].number')
+          gh pr edit "$PR_NUMBER" --add-label "documentation"
 
       - name: Confirm the failure
         if: failure()
@@ -70,7 +71,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr edit 1 --add-label "documentation"
+          PR_NUMBER=$(gh pr list --limit 1 --json number --jq '.[0].number')
+          gh pr edit "$PR_NUMBER" --add-label "documentation"
       - name: Confirm the
         if: success()
         run: echo "✅ Write operation succeeded!"
