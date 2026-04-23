@@ -18,7 +18,7 @@ jobs:
 
       - name: Display cache status # Display cache status (i.e. only works if cache is hit)
         run: |
-          echo "cat text-cache/cached.txt"
+          cat text-cache/cached.txt
 
       - name: Fill in cache directory # Fill in directory only on miss (i.e. only happens when u run it fresh)
         if: steps.deep-cache.outputs.cache-hit != 'true'
@@ -26,7 +26,7 @@ jobs:
           mkdir -p text-cache
           echo "This is some cached text." > text-cache/cached.txt
           echo "Cache filled!"
-          
+
       - name: Save Cache file # Save if the new cache is created (i.e. only happens when u run it fresh)
         if: steps.deep-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
