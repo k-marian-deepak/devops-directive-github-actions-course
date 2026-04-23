@@ -16,6 +16,8 @@ jobs:
         with:
           path: text-cache
           key: text-cache
+        run: |
+          echo "cat text-cache/cached.txt"
 
       # Fill in directory only on miss (i.e. only happens when u run it fresh)
       - name: Fill in cache directory
