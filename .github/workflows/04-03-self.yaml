@@ -1,0 +1,42 @@
+name: Caching #By Deepak
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+    new-caching:
+        name: Text caching
+        runs-on: ubuntu-24.04
+        steps:
+            # Restore cache (misses on first run)
+            - name: Restore Cache file
+              id: deep-cache
+              uses: actions/cache@v4
+              with:
+                path: text-cache
+                key: text-cache
+            
+        #Fill in directory only on miss (i.e. only happens when u run it fresh)
+    creating-data:
+      name: Fill in cache directory
+      runs-on: ubuntu-24.04
+      steps:
+        - name: Fill in cache directory
+          if: steps.deep-cache.outputs.cache-hit != 'true'
+          run: |
+            mkdir -p text-cache
+            echo "This is some cached text." > text-cache/cached.txt
+            echo "Cache filled!"
+
+        #Save if the new cache is created (i.e. only happens when u run it fresh)
+    saving-cache:
+      name: Save Cache file
+      runs-on: ubuntu-24.04
+      steps:
+            - name: Save Cache file
+              if: steps.deep-cache.outputs.cache-hit != 'true'
+              uses: actions/cache@v4
+              with:
+                path: text-cache
+                key: text-cache
