@@ -71,7 +71,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_NUMBER=$(gh pr list --limit 1 --json number --jq '.[0].number')
+          PR_NUMBER=$(gh pr list --limit 1 --json number --jq '.[0].number') # obtain the most recent PR number
           gh pr edit "$PR_NUMBER" --add-label "documentation"
       - name: Confirm the
         if: success()
