@@ -2,7 +2,7 @@ name: Permissions
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, github-permissions]
 
 # Permissions can be defined at the workflow or job level
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
