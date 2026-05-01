@@ -1,7 +1,6 @@
 name: Runner types
 on:
   workflow_dispatch:
-
 jobs:
   ######################################
   #  GITHUB (MICROSOFT) HOSTED RUNNERS

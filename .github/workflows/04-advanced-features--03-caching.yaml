@@ -1,9 +1,6 @@
 name: Caching
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-
 jobs:
   # ──────────────────────────────────────────────
   # 2) Generic cache with actions/cache
